@@ -4,42 +4,34 @@ import { DatabaseService } from 'src/database/database.service';
 
 @Injectable()
 export class UsersService {
+  constructor(private readonly databaseServices: DatabaseService) {}
 
-    constructor(private readonly databaseSevervices: DatabaseService) {}
+  async createUser(createUserDTO: Prisma.UserCreateInput) {
+    return this.databaseServices.user.create({
+      data: createUserDTO,
+    });
+  }
 
-    async createUser(createUserDTO: Prisma.UserCreateInput){
-        return this.databaseSevervices.user.create({
-            data: createUserDTO
-        })
-    }
+  async findAll() {
+    return this.databaseServices.user.findMany();
+  }
 
-    async findAll(){
-        return this.databaseSevervices.user.findMany()
-    }
+  async findOne(email: string) {
+    return this.databaseServices.user.findUnique({
+      where: { email },
+    });
+  }
 
-    async findOne(email: string){
-        return this.databaseSevervices.user.findUnique({
-            where: {
-                email: email
-            }
-        })
-    }
+  async update(email: string, updateUserDTO: Prisma.UserUpdateInput) {
+    return this.databaseServices.user.update({
+      where: { email },
+      data: updateUserDTO,
+    });
+  }
 
-    async update(email: string , updateUserDTO: Prisma.UserUpdateInput){
-        return this.databaseSevervices.user.update({
-            where: {
-                email: email
-            },
-            data: updateUserDTO
-        })
-    }
-
-    async remove(email: string){
-        return this.databaseSevervices.user.delete({
-            where: {
-                email: email
-            }
-        })
-    }
-
+  async remove(email: string) {
+    return this.databaseServices.user.delete({
+      where: { email },
+    });
+  }
 }
