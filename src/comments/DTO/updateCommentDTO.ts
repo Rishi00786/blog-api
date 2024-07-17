@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { CreateCommentDto } from './createCommentDto';
 import { ApiProperty } from '@nestjs/swagger';
+import { CreateCommentDto } from './createCommentDTO';
 
 export class UpdateCommentDto extends PartialType(CreateCommentDto) {
   @ApiProperty({ description: 'The content of the comment', required: false })
